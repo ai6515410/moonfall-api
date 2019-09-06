@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mc.moonfallapi.dao.StoreMapper">
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.Store">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="store_no" jdbcType="VARCHAR" property="storeNo" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="store_address" jdbcType="VARCHAR" property="storeAddress" />
+    <result column="store_phone" jdbcType="VARCHAR" property="storePhone" />
+    <result column="store_sale_qty" jdbcType="INTEGER" property="storeSaleQty" />
+    <result column="store_guarantee_qty" jdbcType="INTEGER" property="storeGuaranteeQty" />
+    <result column="store_praise_qty" jdbcType="INTEGER" property="storePraiseQty" />
+    <result column="store_create_time" jdbcType="DATE" property="storeCreateTime" />
+    <result column="store_update_time" jdbcType="DATE" property="storeUpdateTime" />
+    <result column="store_create_user" jdbcType="VARCHAR" property="storeCreateUser" />
+    <result column="store_delete_flag" jdbcType="INTEGER" property="storeDeleteFlag" />
+    <result column="store_samll_avatar_img" jdbcType="VARCHAR" property="storeSamllAvatarImg" />
+    <result column="store_big_avatar_img" jdbcType="VARCHAR" property="storeBigAvatarImg" />
+    <result column="store_update_user" jdbcType="VARCHAR" property="storeUpdateUser" />
+    <result column="store_is_foster" jdbcType="INTEGER" property="storeIsFoster" />
+    <result column="store_type" jdbcType="INTEGER" property="storeType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, store_no, store_name, store_address, store_phone, store_sale_qty, store_guarantee_qty, 
+    store_praise_qty, store_create_time, store_update_time, store_create_user, store_delete_flag, 
+    store_samll_avatar_img, store_big_avatar_img, store_update_user, store_is_foster, 
+    store_type
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.StoreExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.StoreExample">
+    delete from tbl_store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.Store">
+    insert into tbl_store (id, store_no, store_name, 
+      store_address, store_phone, store_sale_qty, 
+      store_guarantee_qty, store_praise_qty, store_create_time, 
+      store_update_time, store_create_user, store_delete_flag, 
+      store_samll_avatar_img, store_big_avatar_img, 
+      store_update_user, store_is_foster, store_type
+      )
+    values (#{id,jdbcType=VARCHAR}, #{storeNo,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{storeAddress,jdbcType=VARCHAR}, #{storePhone,jdbcType=VARCHAR}, #{storeSaleQty,jdbcType=INTEGER}, 
+      #{storeGuaranteeQty,jdbcType=INTEGER}, #{storePraiseQty,jdbcType=INTEGER}, #{storeCreateTime,jdbcType=DATE}, 
+      #{storeUpdateTime,jdbcType=DATE}, #{storeCreateUser,jdbcType=VARCHAR}, #{storeDeleteFlag,jdbcType=INTEGER}, 
+      #{storeSamllAvatarImg,jdbcType=VARCHAR}, #{storeBigAvatarImg,jdbcType=VARCHAR}, 
+      #{storeUpdateUser,jdbcType=VARCHAR}, #{storeIsFoster,jdbcType=INTEGER}, #{storeType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.Store">
+    insert into tbl_store
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="storeNo != null">
+        store_no,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="storeAddress != null">
+        store_address,
+      </if>
+      <if test="storePhone != null">
+        store_phone,
+      </if>
+      <if test="storeSaleQty != null">
+        store_sale_qty,
+      </if>
+      <if test="storeGuaranteeQty != null">
+        store_guarantee_qty,
+      </if>
+      <if test="storePraiseQty != null">
+        store_praise_qty,
+      </if>
+      <if test="storeCreateTime != null">
+        store_create_time,
+      </if>
+      <if test="storeUpdateTime != null">
+        store_update_time,
+      </if>
+      <if test="storeCreateUser != null">
+        store_create_user,
+      </if>
+      <if test="storeDeleteFlag != null">
+        store_delete_flag,
+      </if>
+      <if test="storeSamllAvatarImg != null">
+        store_samll_avatar_img,
+      </if>
+      <if test="storeBigAvatarImg != null">
+        store_big_avatar_img,
+      </if>
+      <if test="storeUpdateUser != null">
+        store_update_user,
+      </if>
+      <if test="storeIsFoster != null">
+        store_is_foster,
+      </if>
+      <if test="storeType != null">
+        store_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNo != null">
+        #{storeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null">
+        #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null">
+        #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSaleQty != null">
+        #{storeSaleQty,jdbcType=INTEGER},
+      </if>
+      <if test="storeGuaranteeQty != null">
+        #{storeGuaranteeQty,jdbcType=INTEGER},
+      </if>
+      <if test="storePraiseQty != null">
+        #{storePraiseQty,jdbcType=INTEGER},
+      </if>
+      <if test="storeCreateTime != null">
+        #{storeCreateTime,jdbcType=DATE},
+      </if>
+      <if test="storeUpdateTime != null">
+        #{storeUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="storeCreateUser != null">
+        #{storeCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeleteFlag != null">
+        #{storeDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="storeSamllAvatarImg != null">
+        #{storeSamllAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="storeBigAvatarImg != null">
+        #{storeBigAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="storeUpdateUser != null">
+        #{storeUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="storeIsFoster != null">
+        #{storeIsFoster,jdbcType=INTEGER},
+      </if>
+      <if test="storeType != null">
+        #{storeType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.StoreExample" resultType="java.lang.Integer">
+    select count(*) from tbl_store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_store
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeNo != null">
+        store_no = #{record.storeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null">
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeAddress != null">
+        store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storePhone != null">
+        store_phone = #{record.storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeSaleQty != null">
+        store_sale_qty = #{record.storeSaleQty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeGuaranteeQty != null">
+        store_guarantee_qty = #{record.storeGuaranteeQty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePraiseQty != null">
+        store_praise_qty = #{record.storePraiseQty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeCreateTime != null">
+        store_create_time = #{record.storeCreateTime,jdbcType=DATE},
+      </if>
+      <if test="record.storeUpdateTime != null">
+        store_update_time = #{record.storeUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="record.storeCreateUser != null">
+        store_create_user = #{record.storeCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeDeleteFlag != null">
+        store_delete_flag = #{record.storeDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSamllAvatarImg != null">
+        store_samll_avatar_img = #{record.storeSamllAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeBigAvatarImg != null">
+        store_big_avatar_img = #{record.storeBigAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeUpdateUser != null">
+        store_update_user = #{record.storeUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeIsFoster != null">
+        store_is_foster = #{record.storeIsFoster,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeType != null">
+        store_type = #{record.storeType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_store
+    set id = #{record.id,jdbcType=VARCHAR},
+      store_no = #{record.storeNo,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      store_phone = #{record.storePhone,jdbcType=VARCHAR},
+      store_sale_qty = #{record.storeSaleQty,jdbcType=INTEGER},
+      store_guarantee_qty = #{record.storeGuaranteeQty,jdbcType=INTEGER},
+      store_praise_qty = #{record.storePraiseQty,jdbcType=INTEGER},
+      store_create_time = #{record.storeCreateTime,jdbcType=DATE},
+      store_update_time = #{record.storeUpdateTime,jdbcType=DATE},
+      store_create_user = #{record.storeCreateUser,jdbcType=VARCHAR},
+      store_delete_flag = #{record.storeDeleteFlag,jdbcType=INTEGER},
+      store_samll_avatar_img = #{record.storeSamllAvatarImg,jdbcType=VARCHAR},
+      store_big_avatar_img = #{record.storeBigAvatarImg,jdbcType=VARCHAR},
+      store_update_user = #{record.storeUpdateUser,jdbcType=VARCHAR},
+      store_is_foster = #{record.storeIsFoster,jdbcType=INTEGER},
+      store_type = #{record.storeType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.Store">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="store_no" jdbcType="VARCHAR" property="storeNo" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="store_address" jdbcType="VARCHAR" property="storeAddress" />
+    <result column="store_phone" jdbcType="VARCHAR" property="storePhone" />
+    <result column="store_sale_qty" jdbcType="INTEGER" property="storeSaleQty" />
+    <result column="store_guarantee_qty" jdbcType="INTEGER" property="storeGuaranteeQty" />
+    <result column="store_praise_qty" jdbcType="INTEGER" property="storePraiseQty" />
+    <result column="store_create_time" jdbcType="DATE" property="storeCreateTime" />
+    <result column="store_update_time" jdbcType="DATE" property="storeUpdateTime" />
+    <result column="store_create_user" jdbcType="VARCHAR" property="storeCreateUser" />
+    <result column="store_delete_flag" jdbcType="INTEGER" property="storeDeleteFlag" />
+    <result column="store_samll_avatar_img" jdbcType="VARCHAR" property="storeSamllAvatarImg" />
+    <result column="store_big_avatar_img" jdbcType="VARCHAR" property="storeBigAvatarImg" />
+    <result column="store_update_user" jdbcType="VARCHAR" property="storeUpdateUser" />
+    <result column="store_is_foster" jdbcType="INTEGER" property="storeIsFoster" />
+    <result column="store_type" jdbcType="INTEGER" property="storeType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, store_no, store_name, store_address, store_phone, store_sale_qty, store_guarantee_qty, 
+    store_praise_qty, store_create_time, store_update_time, store_create_user, store_delete_flag, 
+    store_samll_avatar_img, store_big_avatar_img, store_update_user, store_is_foster, 
+    store_type
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.StoreExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.StoreExample">
+    delete from tbl_store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.Store">
+    insert into tbl_store (id, store_no, store_name, 
+      store_address, store_phone, store_sale_qty, 
+      store_guarantee_qty, store_praise_qty, store_create_time, 
+      store_update_time, store_create_user, store_delete_flag, 
+      store_samll_avatar_img, store_big_avatar_img, 
+      store_update_user, store_is_foster, store_type
+      )
+    values (#{id,jdbcType=VARCHAR}, #{storeNo,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, 
+      #{storeAddress,jdbcType=VARCHAR}, #{storePhone,jdbcType=VARCHAR}, #{storeSaleQty,jdbcType=INTEGER}, 
+      #{storeGuaranteeQty,jdbcType=INTEGER}, #{storePraiseQty,jdbcType=INTEGER}, #{storeCreateTime,jdbcType=DATE}, 
+      #{storeUpdateTime,jdbcType=DATE}, #{storeCreateUser,jdbcType=VARCHAR}, #{storeDeleteFlag,jdbcType=INTEGER}, 
+      #{storeSamllAvatarImg,jdbcType=VARCHAR}, #{storeBigAvatarImg,jdbcType=VARCHAR}, 
+      #{storeUpdateUser,jdbcType=VARCHAR}, #{storeIsFoster,jdbcType=INTEGER}, #{storeType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.Store">
+    insert into tbl_store
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="storeNo != null">
+        store_no,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="storeAddress != null">
+        store_address,
+      </if>
+      <if test="storePhone != null">
+        store_phone,
+      </if>
+      <if test="storeSaleQty != null">
+        store_sale_qty,
+      </if>
+      <if test="storeGuaranteeQty != null">
+        store_guarantee_qty,
+      </if>
+      <if test="storePraiseQty != null">
+        store_praise_qty,
+      </if>
+      <if test="storeCreateTime != null">
+        store_create_time,
+      </if>
+      <if test="storeUpdateTime != null">
+        store_update_time,
+      </if>
+      <if test="storeCreateUser != null">
+        store_create_user,
+      </if>
+      <if test="storeDeleteFlag != null">
+        store_delete_flag,
+      </if>
+      <if test="storeSamllAvatarImg != null">
+        store_samll_avatar_img,
+      </if>
+      <if test="storeBigAvatarImg != null">
+        store_big_avatar_img,
+      </if>
+      <if test="storeUpdateUser != null">
+        store_update_user,
+      </if>
+      <if test="storeIsFoster != null">
+        store_is_foster,
+      </if>
+      <if test="storeType != null">
+        store_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="storeNo != null">
+        #{storeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null">
+        #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storePhone != null">
+        #{storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSaleQty != null">
+        #{storeSaleQty,jdbcType=INTEGER},
+      </if>
+      <if test="storeGuaranteeQty != null">
+        #{storeGuaranteeQty,jdbcType=INTEGER},
+      </if>
+      <if test="storePraiseQty != null">
+        #{storePraiseQty,jdbcType=INTEGER},
+      </if>
+      <if test="storeCreateTime != null">
+        #{storeCreateTime,jdbcType=DATE},
+      </if>
+      <if test="storeUpdateTime != null">
+        #{storeUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="storeCreateUser != null">
+        #{storeCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="storeDeleteFlag != null">
+        #{storeDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="storeSamllAvatarImg != null">
+        #{storeSamllAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="storeBigAvatarImg != null">
+        #{storeBigAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="storeUpdateUser != null">
+        #{storeUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="storeIsFoster != null">
+        #{storeIsFoster,jdbcType=INTEGER},
+      </if>
+      <if test="storeType != null">
+        #{storeType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.StoreExample" resultType="java.lang.Integer">
+    select count(*) from tbl_store
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_store
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeNo != null">
+        store_no = #{record.storeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeName != null">
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeAddress != null">
+        store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storePhone != null">
+        store_phone = #{record.storePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeSaleQty != null">
+        store_sale_qty = #{record.storeSaleQty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeGuaranteeQty != null">
+        store_guarantee_qty = #{record.storeGuaranteeQty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storePraiseQty != null">
+        store_praise_qty = #{record.storePraiseQty,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeCreateTime != null">
+        store_create_time = #{record.storeCreateTime,jdbcType=DATE},
+      </if>
+      <if test="record.storeUpdateTime != null">
+        store_update_time = #{record.storeUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="record.storeCreateUser != null">
+        store_create_user = #{record.storeCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeDeleteFlag != null">
+        store_delete_flag = #{record.storeDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeSamllAvatarImg != null">
+        store_samll_avatar_img = #{record.storeSamllAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeBigAvatarImg != null">
+        store_big_avatar_img = #{record.storeBigAvatarImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeUpdateUser != null">
+        store_update_user = #{record.storeUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeIsFoster != null">
+        store_is_foster = #{record.storeIsFoster,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeType != null">
+        store_type = #{record.storeType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_store
+    set id = #{record.id,jdbcType=VARCHAR},
+      store_no = #{record.storeNo,jdbcType=VARCHAR},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      store_address = #{record.storeAddress,jdbcType=VARCHAR},
+      store_phone = #{record.storePhone,jdbcType=VARCHAR},
+      store_sale_qty = #{record.storeSaleQty,jdbcType=INTEGER},
+      store_guarantee_qty = #{record.storeGuaranteeQty,jdbcType=INTEGER},
+      store_praise_qty = #{record.storePraiseQty,jdbcType=INTEGER},
+      store_create_time = #{record.storeCreateTime,jdbcType=DATE},
+      store_update_time = #{record.storeUpdateTime,jdbcType=DATE},
+      store_create_user = #{record.storeCreateUser,jdbcType=VARCHAR},
+      store_delete_flag = #{record.storeDeleteFlag,jdbcType=INTEGER},
+      store_samll_avatar_img = #{record.storeSamllAvatarImg,jdbcType=VARCHAR},
+      store_big_avatar_img = #{record.storeBigAvatarImg,jdbcType=VARCHAR},
+      store_update_user = #{record.storeUpdateUser,jdbcType=VARCHAR},
+      store_is_foster = #{record.storeIsFoster,jdbcType=INTEGER},
+      store_type = #{record.storeType,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

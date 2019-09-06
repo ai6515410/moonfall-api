@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mc.moonfallapi.dao.CommodityMapper">
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.Commodity">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="commodity_type_id" jdbcType="VARCHAR" property="commodityTypeId" />
+    <result column="commodity_no" jdbcType="VARCHAR" property="commodityNo" />
+    <result column="commodity_name" jdbcType="VARCHAR" property="commodityName" />
+    <result column="commodity_status" jdbcType="INTEGER" property="commodityStatus" />
+    <result column="commodity_quantity" jdbcType="INTEGER" property="commodityQuantity" />
+    <result column="commodity_comment" jdbcType="VARCHAR" property="commodityComment" />
+    <result column="commodity_attribute" jdbcType="INTEGER" property="commodityAttribute" />
+    <result column="commodity_effective_quantity" jdbcType="INTEGER" property="commodityEffectiveQuantity" />
+    <result column="commodity_create_time" jdbcType="DATE" property="commodityCreateTime" />
+    <result column="commodity_create_user" jdbcType="VARCHAR" property="commodityCreateUser" />
+    <result column="commodity_update_time" jdbcType="DATE" property="commodityUpdateTime" />
+    <result column="commodity_update_user" jdbcType="VARCHAR" property="commodityUpdateUser" />
+    <result column="commodity_delete_flag" jdbcType="INTEGER" property="commodityDeleteFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, commodity_type_id, commodity_no, commodity_name, commodity_status, commodity_quantity, 
+    commodity_comment, commodity_attribute, commodity_effective_quantity, commodity_create_time, 
+    commodity_create_user, commodity_update_time, commodity_update_user, commodity_delete_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.CommodityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.CommodityExample">
+    delete from tbl_commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.Commodity">
+    insert into tbl_commodity (id, commodity_type_id, commodity_no, 
+      commodity_name, commodity_status, commodity_quantity, 
+      commodity_comment, commodity_attribute, commodity_effective_quantity, 
+      commodity_create_time, commodity_create_user, 
+      commodity_update_time, commodity_update_user, 
+      commodity_delete_flag)
+    values (#{id,jdbcType=VARCHAR}, #{commodityTypeId,jdbcType=VARCHAR}, #{commodityNo,jdbcType=VARCHAR}, 
+      #{commodityName,jdbcType=VARCHAR}, #{commodityStatus,jdbcType=INTEGER}, #{commodityQuantity,jdbcType=INTEGER}, 
+      #{commodityComment,jdbcType=VARCHAR}, #{commodityAttribute,jdbcType=INTEGER}, #{commodityEffectiveQuantity,jdbcType=INTEGER}, 
+      #{commodityCreateTime,jdbcType=DATE}, #{commodityCreateUser,jdbcType=VARCHAR}, 
+      #{commodityUpdateTime,jdbcType=DATE}, #{commodityUpdateUser,jdbcType=VARCHAR}, 
+      #{commodityDeleteFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.Commodity">
+    insert into tbl_commodity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="commodityTypeId != null">
+        commodity_type_id,
+      </if>
+      <if test="commodityNo != null">
+        commodity_no,
+      </if>
+      <if test="commodityName != null">
+        commodity_name,
+      </if>
+      <if test="commodityStatus != null">
+        commodity_status,
+      </if>
+      <if test="commodityQuantity != null">
+        commodity_quantity,
+      </if>
+      <if test="commodityComment != null">
+        commodity_comment,
+      </if>
+      <if test="commodityAttribute != null">
+        commodity_attribute,
+      </if>
+      <if test="commodityEffectiveQuantity != null">
+        commodity_effective_quantity,
+      </if>
+      <if test="commodityCreateTime != null">
+        commodity_create_time,
+      </if>
+      <if test="commodityCreateUser != null">
+        commodity_create_user,
+      </if>
+      <if test="commodityUpdateTime != null">
+        commodity_update_time,
+      </if>
+      <if test="commodityUpdateUser != null">
+        commodity_update_user,
+      </if>
+      <if test="commodityDeleteFlag != null">
+        commodity_delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityTypeId != null">
+        #{commodityTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityNo != null">
+        #{commodityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null">
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityStatus != null">
+        #{commodityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commodityQuantity != null">
+        #{commodityQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="commodityComment != null">
+        #{commodityComment,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityAttribute != null">
+        #{commodityAttribute,jdbcType=INTEGER},
+      </if>
+      <if test="commodityEffectiveQuantity != null">
+        #{commodityEffectiveQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="commodityCreateTime != null">
+        #{commodityCreateTime,jdbcType=DATE},
+      </if>
+      <if test="commodityCreateUser != null">
+        #{commodityCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityUpdateTime != null">
+        #{commodityUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="commodityUpdateUser != null">
+        #{commodityUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityDeleteFlag != null">
+        #{commodityDeleteFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.CommodityExample" resultType="java.lang.Integer">
+    select count(*) from tbl_commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_commodity
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityTypeId != null">
+        commodity_type_id = #{record.commodityTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityNo != null">
+        commodity_no = #{record.commodityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityName != null">
+        commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityStatus != null">
+        commodity_status = #{record.commodityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityQuantity != null">
+        commodity_quantity = #{record.commodityQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityComment != null">
+        commodity_comment = #{record.commodityComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityAttribute != null">
+        commodity_attribute = #{record.commodityAttribute,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityEffectiveQuantity != null">
+        commodity_effective_quantity = #{record.commodityEffectiveQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityCreateTime != null">
+        commodity_create_time = #{record.commodityCreateTime,jdbcType=DATE},
+      </if>
+      <if test="record.commodityCreateUser != null">
+        commodity_create_user = #{record.commodityCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityUpdateTime != null">
+        commodity_update_time = #{record.commodityUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="record.commodityUpdateUser != null">
+        commodity_update_user = #{record.commodityUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityDeleteFlag != null">
+        commodity_delete_flag = #{record.commodityDeleteFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_commodity
+    set id = #{record.id,jdbcType=VARCHAR},
+      commodity_type_id = #{record.commodityTypeId,jdbcType=VARCHAR},
+      commodity_no = #{record.commodityNo,jdbcType=VARCHAR},
+      commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+      commodity_status = #{record.commodityStatus,jdbcType=INTEGER},
+      commodity_quantity = #{record.commodityQuantity,jdbcType=INTEGER},
+      commodity_comment = #{record.commodityComment,jdbcType=VARCHAR},
+      commodity_attribute = #{record.commodityAttribute,jdbcType=INTEGER},
+      commodity_effective_quantity = #{record.commodityEffectiveQuantity,jdbcType=INTEGER},
+      commodity_create_time = #{record.commodityCreateTime,jdbcType=DATE},
+      commodity_create_user = #{record.commodityCreateUser,jdbcType=VARCHAR},
+      commodity_update_time = #{record.commodityUpdateTime,jdbcType=DATE},
+      commodity_update_user = #{record.commodityUpdateUser,jdbcType=VARCHAR},
+      commodity_delete_flag = #{record.commodityDeleteFlag,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.Commodity">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="commodity_type_id" jdbcType="VARCHAR" property="commodityTypeId" />
+    <result column="commodity_no" jdbcType="VARCHAR" property="commodityNo" />
+    <result column="commodity_name" jdbcType="VARCHAR" property="commodityName" />
+    <result column="commodity_status" jdbcType="INTEGER" property="commodityStatus" />
+    <result column="commodity_quantity" jdbcType="INTEGER" property="commodityQuantity" />
+    <result column="commodity_comment" jdbcType="VARCHAR" property="commodityComment" />
+    <result column="commodity_attribute" jdbcType="INTEGER" property="commodityAttribute" />
+    <result column="commodity_effective_quantity" jdbcType="INTEGER" property="commodityEffectiveQuantity" />
+    <result column="commodity_create_time" jdbcType="DATE" property="commodityCreateTime" />
+    <result column="commodity_create_user" jdbcType="VARCHAR" property="commodityCreateUser" />
+    <result column="commodity_update_time" jdbcType="DATE" property="commodityUpdateTime" />
+    <result column="commodity_update_user" jdbcType="VARCHAR" property="commodityUpdateUser" />
+    <result column="commodity_delete_flag" jdbcType="INTEGER" property="commodityDeleteFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, commodity_type_id, commodity_no, commodity_name, commodity_status, commodity_quantity, 
+    commodity_comment, commodity_attribute, commodity_effective_quantity, commodity_create_time, 
+    commodity_create_user, commodity_update_time, commodity_update_user, commodity_delete_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.CommodityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.CommodityExample">
+    delete from tbl_commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.Commodity">
+    insert into tbl_commodity (id, commodity_type_id, commodity_no, 
+      commodity_name, commodity_status, commodity_quantity, 
+      commodity_comment, commodity_attribute, commodity_effective_quantity, 
+      commodity_create_time, commodity_create_user, 
+      commodity_update_time, commodity_update_user, 
+      commodity_delete_flag)
+    values (#{id,jdbcType=VARCHAR}, #{commodityTypeId,jdbcType=VARCHAR}, #{commodityNo,jdbcType=VARCHAR}, 
+      #{commodityName,jdbcType=VARCHAR}, #{commodityStatus,jdbcType=INTEGER}, #{commodityQuantity,jdbcType=INTEGER}, 
+      #{commodityComment,jdbcType=VARCHAR}, #{commodityAttribute,jdbcType=INTEGER}, #{commodityEffectiveQuantity,jdbcType=INTEGER}, 
+      #{commodityCreateTime,jdbcType=DATE}, #{commodityCreateUser,jdbcType=VARCHAR}, 
+      #{commodityUpdateTime,jdbcType=DATE}, #{commodityUpdateUser,jdbcType=VARCHAR}, 
+      #{commodityDeleteFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.Commodity">
+    insert into tbl_commodity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="commodityTypeId != null">
+        commodity_type_id,
+      </if>
+      <if test="commodityNo != null">
+        commodity_no,
+      </if>
+      <if test="commodityName != null">
+        commodity_name,
+      </if>
+      <if test="commodityStatus != null">
+        commodity_status,
+      </if>
+      <if test="commodityQuantity != null">
+        commodity_quantity,
+      </if>
+      <if test="commodityComment != null">
+        commodity_comment,
+      </if>
+      <if test="commodityAttribute != null">
+        commodity_attribute,
+      </if>
+      <if test="commodityEffectiveQuantity != null">
+        commodity_effective_quantity,
+      </if>
+      <if test="commodityCreateTime != null">
+        commodity_create_time,
+      </if>
+      <if test="commodityCreateUser != null">
+        commodity_create_user,
+      </if>
+      <if test="commodityUpdateTime != null">
+        commodity_update_time,
+      </if>
+      <if test="commodityUpdateUser != null">
+        commodity_update_user,
+      </if>
+      <if test="commodityDeleteFlag != null">
+        commodity_delete_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityTypeId != null">
+        #{commodityTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityNo != null">
+        #{commodityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityName != null">
+        #{commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityStatus != null">
+        #{commodityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commodityQuantity != null">
+        #{commodityQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="commodityComment != null">
+        #{commodityComment,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityAttribute != null">
+        #{commodityAttribute,jdbcType=INTEGER},
+      </if>
+      <if test="commodityEffectiveQuantity != null">
+        #{commodityEffectiveQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="commodityCreateTime != null">
+        #{commodityCreateTime,jdbcType=DATE},
+      </if>
+      <if test="commodityCreateUser != null">
+        #{commodityCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityUpdateTime != null">
+        #{commodityUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="commodityUpdateUser != null">
+        #{commodityUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityDeleteFlag != null">
+        #{commodityDeleteFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.CommodityExample" resultType="java.lang.Integer">
+    select count(*) from tbl_commodity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_commodity
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityTypeId != null">
+        commodity_type_id = #{record.commodityTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityNo != null">
+        commodity_no = #{record.commodityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityName != null">
+        commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityStatus != null">
+        commodity_status = #{record.commodityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityQuantity != null">
+        commodity_quantity = #{record.commodityQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityComment != null">
+        commodity_comment = #{record.commodityComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityAttribute != null">
+        commodity_attribute = #{record.commodityAttribute,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityEffectiveQuantity != null">
+        commodity_effective_quantity = #{record.commodityEffectiveQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityCreateTime != null">
+        commodity_create_time = #{record.commodityCreateTime,jdbcType=DATE},
+      </if>
+      <if test="record.commodityCreateUser != null">
+        commodity_create_user = #{record.commodityCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityUpdateTime != null">
+        commodity_update_time = #{record.commodityUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="record.commodityUpdateUser != null">
+        commodity_update_user = #{record.commodityUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityDeleteFlag != null">
+        commodity_delete_flag = #{record.commodityDeleteFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_commodity
+    set id = #{record.id,jdbcType=VARCHAR},
+      commodity_type_id = #{record.commodityTypeId,jdbcType=VARCHAR},
+      commodity_no = #{record.commodityNo,jdbcType=VARCHAR},
+      commodity_name = #{record.commodityName,jdbcType=VARCHAR},
+      commodity_status = #{record.commodityStatus,jdbcType=INTEGER},
+      commodity_quantity = #{record.commodityQuantity,jdbcType=INTEGER},
+      commodity_comment = #{record.commodityComment,jdbcType=VARCHAR},
+      commodity_attribute = #{record.commodityAttribute,jdbcType=INTEGER},
+      commodity_effective_quantity = #{record.commodityEffectiveQuantity,jdbcType=INTEGER},
+      commodity_create_time = #{record.commodityCreateTime,jdbcType=DATE},
+      commodity_create_user = #{record.commodityCreateUser,jdbcType=VARCHAR},
+      commodity_update_time = #{record.commodityUpdateTime,jdbcType=DATE},
+      commodity_update_user = #{record.commodityUpdateUser,jdbcType=VARCHAR},
+      commodity_delete_flag = #{record.commodityDeleteFlag,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

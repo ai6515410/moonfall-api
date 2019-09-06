@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mc.moonfallapi.dao.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.OrderDetail">
+    <result column="主键" jdbcType="CHAR" property="主键" />
+    <result column="商品id" jdbcType="CHAR" property="商品id" />
+    <result column="商品数量" jdbcType="CHAR" property="商品数量" />
+    <result column="订单id" jdbcType="CHAR" property="订单id" />
+    <result column="订单编号" jdbcType="CHAR" property="订单编号" />
+    <result column="Column_6" jdbcType="CHAR" property="column6" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    主键, 商品id, 商品数量, 订单id, 订单编号, Column_6
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.OrderDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.OrderDetailExample">
+    delete from tbl_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.OrderDetail">
+    insert into tbl_order_detail (主键, 商品id, 商品数量, 订单id, 
+      订单编号, Column_6)
+    values (#{主键,jdbcType=CHAR}, #{商品id,jdbcType=CHAR}, #{商品数量,jdbcType=CHAR}, #{订单id,jdbcType=CHAR}, 
+      #{订单编号,jdbcType=CHAR}, #{column6,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.OrderDetail">
+    insert into tbl_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="主键 != null">
+        主键,
+      </if>
+      <if test="商品id != null">
+        商品id,
+      </if>
+      <if test="商品数量 != null">
+        商品数量,
+      </if>
+      <if test="订单id != null">
+        订单id,
+      </if>
+      <if test="订单编号 != null">
+        订单编号,
+      </if>
+      <if test="column6 != null">
+        Column_6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="主键 != null">
+        #{主键,jdbcType=CHAR},
+      </if>
+      <if test="商品id != null">
+        #{商品id,jdbcType=CHAR},
+      </if>
+      <if test="商品数量 != null">
+        #{商品数量,jdbcType=CHAR},
+      </if>
+      <if test="订单id != null">
+        #{订单id,jdbcType=CHAR},
+      </if>
+      <if test="订单编号 != null">
+        #{订单编号,jdbcType=CHAR},
+      </if>
+      <if test="column6 != null">
+        #{column6,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.OrderDetailExample" resultType="java.lang.Integer">
+    select count(*) from tbl_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_order_detail
+    <set>
+      <if test="record.主键 != null">
+        主键 = #{record.主键,jdbcType=CHAR},
+      </if>
+      <if test="record.商品id != null">
+        商品id = #{record.商品id,jdbcType=CHAR},
+      </if>
+      <if test="record.商品数量 != null">
+        商品数量 = #{record.商品数量,jdbcType=CHAR},
+      </if>
+      <if test="record.订单id != null">
+        订单id = #{record.订单id,jdbcType=CHAR},
+      </if>
+      <if test="record.订单编号 != null">
+        订单编号 = #{record.订单编号,jdbcType=CHAR},
+      </if>
+      <if test="record.column6 != null">
+        Column_6 = #{record.column6,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_order_detail
+    set 主键 = #{record.主键,jdbcType=CHAR},
+      商品id = #{record.商品id,jdbcType=CHAR},
+      商品数量 = #{record.商品数量,jdbcType=CHAR},
+      订单id = #{record.订单id,jdbcType=CHAR},
+      订单编号 = #{record.订单编号,jdbcType=CHAR},
+      Column_6 = #{record.column6,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.OrderDetail">
+    <result column="主键" jdbcType="CHAR" property="主键" />
+    <result column="商品id" jdbcType="CHAR" property="商品id" />
+    <result column="商品数量" jdbcType="CHAR" property="商品数量" />
+    <result column="订单id" jdbcType="CHAR" property="订单id" />
+    <result column="订单编号" jdbcType="CHAR" property="订单编号" />
+    <result column="Column_6" jdbcType="CHAR" property="column6" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    主键, 商品id, 商品数量, 订单id, 订单编号, Column_6
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.OrderDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.OrderDetailExample">
+    delete from tbl_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.OrderDetail">
+    insert into tbl_order_detail (主键, 商品id, 商品数量, 订单id, 
+      订单编号, Column_6)
+    values (#{主键,jdbcType=CHAR}, #{商品id,jdbcType=CHAR}, #{商品数量,jdbcType=CHAR}, #{订单id,jdbcType=CHAR}, 
+      #{订单编号,jdbcType=CHAR}, #{column6,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.OrderDetail">
+    insert into tbl_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="主键 != null">
+        主键,
+      </if>
+      <if test="商品id != null">
+        商品id,
+      </if>
+      <if test="商品数量 != null">
+        商品数量,
+      </if>
+      <if test="订单id != null">
+        订单id,
+      </if>
+      <if test="订单编号 != null">
+        订单编号,
+      </if>
+      <if test="column6 != null">
+        Column_6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="主键 != null">
+        #{主键,jdbcType=CHAR},
+      </if>
+      <if test="商品id != null">
+        #{商品id,jdbcType=CHAR},
+      </if>
+      <if test="商品数量 != null">
+        #{商品数量,jdbcType=CHAR},
+      </if>
+      <if test="订单id != null">
+        #{订单id,jdbcType=CHAR},
+      </if>
+      <if test="订单编号 != null">
+        #{订单编号,jdbcType=CHAR},
+      </if>
+      <if test="column6 != null">
+        #{column6,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.OrderDetailExample" resultType="java.lang.Integer">
+    select count(*) from tbl_order_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_order_detail
+    <set>
+      <if test="record.主键 != null">
+        主键 = #{record.主键,jdbcType=CHAR},
+      </if>
+      <if test="record.商品id != null">
+        商品id = #{record.商品id,jdbcType=CHAR},
+      </if>
+      <if test="record.商品数量 != null">
+        商品数量 = #{record.商品数量,jdbcType=CHAR},
+      </if>
+      <if test="record.订单id != null">
+        订单id = #{record.订单id,jdbcType=CHAR},
+      </if>
+      <if test="record.订单编号 != null">
+        订单编号 = #{record.订单编号,jdbcType=CHAR},
+      </if>
+      <if test="record.column6 != null">
+        Column_6 = #{record.column6,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_order_detail
+    set 主键 = #{record.主键,jdbcType=CHAR},
+      商品id = #{record.商品id,jdbcType=CHAR},
+      商品数量 = #{record.商品数量,jdbcType=CHAR},
+      订单id = #{record.订单id,jdbcType=CHAR},
+      订单编号 = #{record.订单编号,jdbcType=CHAR},
+      Column_6 = #{record.column6,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

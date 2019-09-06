@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mc.moonfallapi.dao.SystemInfoMapper">
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.SystemInfo">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="system_info" jdbcType="VARCHAR" property="systemInfo" />
+    <result column="system_delete_flag" jdbcType="INTEGER" property="systemDeleteFlag" />
+    <result column="system_create_time" jdbcType="DATE" property="systemCreateTime" />
+    <result column="system_create_user" jdbcType="VARCHAR" property="systemCreateUser" />
+    <result column="system_update_time" jdbcType="DATE" property="systemUpdateTime" />
+    <result column="system_update_user" jdbcType="VARCHAR" property="systemUpdateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, system_info, system_delete_flag, system_create_time, system_create_user, system_update_time, 
+    system_update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.SystemInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_system_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.SystemInfoExample">
+    delete from tbl_system_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.SystemInfo">
+    insert into tbl_system_info (id, system_info, system_delete_flag, 
+      system_create_time, system_create_user, system_update_time, 
+      system_update_user)
+    values (#{id,jdbcType=VARCHAR}, #{systemInfo,jdbcType=VARCHAR}, #{systemDeleteFlag,jdbcType=INTEGER}, 
+      #{systemCreateTime,jdbcType=DATE}, #{systemCreateUser,jdbcType=VARCHAR}, #{systemUpdateTime,jdbcType=DATE}, 
+      #{systemUpdateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.SystemInfo">
+    insert into tbl_system_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="systemInfo != null">
+        system_info,
+      </if>
+      <if test="systemDeleteFlag != null">
+        system_delete_flag,
+      </if>
+      <if test="systemCreateTime != null">
+        system_create_time,
+      </if>
+      <if test="systemCreateUser != null">
+        system_create_user,
+      </if>
+      <if test="systemUpdateTime != null">
+        system_update_time,
+      </if>
+      <if test="systemUpdateUser != null">
+        system_update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="systemInfo != null">
+        #{systemInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="systemDeleteFlag != null">
+        #{systemDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="systemCreateTime != null">
+        #{systemCreateTime,jdbcType=DATE},
+      </if>
+      <if test="systemCreateUser != null">
+        #{systemCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="systemUpdateTime != null">
+        #{systemUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="systemUpdateUser != null">
+        #{systemUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.SystemInfoExample" resultType="java.lang.Integer">
+    select count(*) from tbl_system_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_system_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemInfo != null">
+        system_info = #{record.systemInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemDeleteFlag != null">
+        system_delete_flag = #{record.systemDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemCreateTime != null">
+        system_create_time = #{record.systemCreateTime,jdbcType=DATE},
+      </if>
+      <if test="record.systemCreateUser != null">
+        system_create_user = #{record.systemCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemUpdateTime != null">
+        system_update_time = #{record.systemUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="record.systemUpdateUser != null">
+        system_update_user = #{record.systemUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_system_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      system_info = #{record.systemInfo,jdbcType=VARCHAR},
+      system_delete_flag = #{record.systemDeleteFlag,jdbcType=INTEGER},
+      system_create_time = #{record.systemCreateTime,jdbcType=DATE},
+      system_create_user = #{record.systemCreateUser,jdbcType=VARCHAR},
+      system_update_time = #{record.systemUpdateTime,jdbcType=DATE},
+      system_update_user = #{record.systemUpdateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.mc.moonfallapi.vo.SystemInfo">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="system_info" jdbcType="VARCHAR" property="systemInfo" />
+    <result column="system_delete_flag" jdbcType="INTEGER" property="systemDeleteFlag" />
+    <result column="system_create_time" jdbcType="DATE" property="systemCreateTime" />
+    <result column="system_create_user" jdbcType="VARCHAR" property="systemCreateUser" />
+    <result column="system_update_time" jdbcType="DATE" property="systemUpdateTime" />
+    <result column="system_update_user" jdbcType="VARCHAR" property="systemUpdateUser" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, system_info, system_delete_flag, system_create_time, system_create_user, system_update_time, 
+    system_update_user
+  </sql>
+  <select id="selectByExample" parameterType="com.mc.moonfallapi.vo.SystemInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_system_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.mc.moonfallapi.vo.SystemInfoExample">
+    delete from tbl_system_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mc.moonfallapi.vo.SystemInfo">
+    insert into tbl_system_info (id, system_info, system_delete_flag, 
+      system_create_time, system_create_user, system_update_time, 
+      system_update_user)
+    values (#{id,jdbcType=VARCHAR}, #{systemInfo,jdbcType=VARCHAR}, #{systemDeleteFlag,jdbcType=INTEGER}, 
+      #{systemCreateTime,jdbcType=DATE}, #{systemCreateUser,jdbcType=VARCHAR}, #{systemUpdateTime,jdbcType=DATE}, 
+      #{systemUpdateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mc.moonfallapi.vo.SystemInfo">
+    insert into tbl_system_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="systemInfo != null">
+        system_info,
+      </if>
+      <if test="systemDeleteFlag != null">
+        system_delete_flag,
+      </if>
+      <if test="systemCreateTime != null">
+        system_create_time,
+      </if>
+      <if test="systemCreateUser != null">
+        system_create_user,
+      </if>
+      <if test="systemUpdateTime != null">
+        system_update_time,
+      </if>
+      <if test="systemUpdateUser != null">
+        system_update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="systemInfo != null">
+        #{systemInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="systemDeleteFlag != null">
+        #{systemDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="systemCreateTime != null">
+        #{systemCreateTime,jdbcType=DATE},
+      </if>
+      <if test="systemCreateUser != null">
+        #{systemCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="systemUpdateTime != null">
+        #{systemUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="systemUpdateUser != null">
+        #{systemUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mc.moonfallapi.vo.SystemInfoExample" resultType="java.lang.Integer">
+    select count(*) from tbl_system_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tbl_system_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemInfo != null">
+        system_info = #{record.systemInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemDeleteFlag != null">
+        system_delete_flag = #{record.systemDeleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.systemCreateTime != null">
+        system_create_time = #{record.systemCreateTime,jdbcType=DATE},
+      </if>
+      <if test="record.systemCreateUser != null">
+        system_create_user = #{record.systemCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemUpdateTime != null">
+        system_update_time = #{record.systemUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="record.systemUpdateUser != null">
+        system_update_user = #{record.systemUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tbl_system_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      system_info = #{record.systemInfo,jdbcType=VARCHAR},
+      system_delete_flag = #{record.systemDeleteFlag,jdbcType=INTEGER},
+      system_create_time = #{record.systemCreateTime,jdbcType=DATE},
+      system_create_user = #{record.systemCreateUser,jdbcType=VARCHAR},
+      system_update_time = #{record.systemUpdateTime,jdbcType=DATE},
+      system_update_user = #{record.systemUpdateUser,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
